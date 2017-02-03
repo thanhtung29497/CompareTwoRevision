@@ -1,0 +1,17 @@
+{
+  "name": "CompareTwoRevision",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mendixmodelsdk": "^3.0.3",
+    "mendixplatformsdk": "^2.0.0",
+    "when": "^3.7.7"
+  }
+}

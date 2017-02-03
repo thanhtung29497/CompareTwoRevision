@@ -1,0 +1,14 @@
+{
+	"compilerOptions" : {
+		"module" : "commonjs",
+		"target" : "es5"
+	},
+	"files" : [
+		"main.ts",
+		"RevisionUtils.ts",
+		"ProjectInfo.ts",
+		"ProjectUtils.ts",
+		"MicroflowUtils.ts",
+		"SearchingList.ts"
+	]
+}
