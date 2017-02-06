@@ -3,6 +3,13 @@ export interface compare<T> {
 }
 
 export class SearchingList <T> {
+    /**
+     * store a list of T elements and check if an element or a list of elements (type T) appears in this list
+     * use Quicksort to store list and use BinarySearch to search
+     * param1: an array of T elements
+     * param2: a function indicates greater relation between two elements (just for sorting)
+     * param3: a function sepecifies if two elements are equal
+     */
     private _list : T[];
     private _isGreater : compare<T>;
     private _isEqual : compare<T>;
@@ -13,10 +20,10 @@ export class SearchingList <T> {
         this._isEqual = isEqual;
     }
 
-    private sort(l : number, r : number) : void {
-        if (l >= r) return;
-        let i = l, j = r;
-        let pivot = this._list[l];
+    private sort(start : number, end : number) : void {
+        if (start >= end) return;
+        let i = start, j = end;
+        let pivot = this._list[start];
         do {
             while (this._isGreater(this._list[j], pivot)) j--;
             while (this._isGreater(pivot, this._list[i])) i++;
@@ -28,19 +35,19 @@ export class SearchingList <T> {
                 j--;
             }
         } while (i <= j);
-        this.sort(l,j);
-        this.sort(i,r);
+        this.sort(start,j);
+        this.sort(i,end);
     }
 
     contain(element : T) : boolean {
-        let l = 0, r = this._list.length-1;
-        while (l <= r) {
-            let mid = Math.floor((l + r) /2);
+        let start = 0, end = this._list.length-1;
+        while (start <= end) {
+            let mid = Math.floor((start + end) /2);
             if (this._isEqual(element, this._list[mid])) return true;
             if (this._isGreater(this._list[mid], element)) {
-                r = mid-1;
+                end = mid-1;
             } else {
-                l = mid + 1;
+                start = mid + 1;
             }
         }
         return false;
@@ -50,10 +57,11 @@ export class SearchingList <T> {
         return this._list;
     }
 
-    missingList(list : SearchingList<T> | T[]) : T[] {
+    missingList(listToCompare : SearchingList<T> | T[]) : T[] {
+        // return a list includes all elements that appears in listToCompare but not in this list
         let missingList = [];
-        if (list instanceof SearchingList) list = list.getList();
-        list.forEach( element => {
+        if (listToCompare instanceof SearchingList) listToCompare = listToCompare.getList();
+        listToCompare.forEach( element => {
             if (!this.contain(element)) {
                 missingList.push(element);
             }
@@ -61,25 +69,27 @@ export class SearchingList <T> {
         return missingList;
     }
 
-    commonList(list : SearchingList<T> | T[]) : SearchingList<T> {
+    commonList(listToCompare : SearchingList<T> | T[]) : SearchingList<T> {
+        // return a list includes all elements that appears in both listToCompare and this list
         let commonList = [];
-        if (list instanceof SearchingList) list = list.getList();
-        list.forEach( element => {
+        if (listToCompare instanceof SearchingList) listToCompare = listToCompare.getList();
+        listToCompare.forEach( element => {
             if (this.contain(element)) {
                 commonList.push(element);
             }
         })
         return new SearchingList<T>(commonList, this._isGreater);
     }
-    find( element : T) : T {
-        let l = 0, r = this._list.length-1;
-        while (l <= r) {
-            let mid = Math.floor((l + r) /2);
-            if (this._isEqual(element, this._list[mid])) return this._list[mid];
-            if (this._isGreater(this._list[mid], element)) {
-                r = mid-1;
+    find( elementToFind : T) : T {
+        // return the element in this list that is equal to elementToFind
+        let start = 0, end = this._list.length-1;
+        while (start <= end) {
+            let mid = Math.floor((start + end) /2);
+            if (this._isEqual(elementToFind, this._list[mid])) return this._list[mid];
+            if (this._isGreater(this._list[mid], elementToFind)) {
+                end = mid-1;
             } else {
-                l = mid + 1;
+                start = mid + 1;
             }
         }
         return null;

@@ -23,7 +23,7 @@ export class RevisionUtils {
     }
 
     load () : when.Promise<RevisionUtils> {
-        return when.promise<RevisionUtils> ( (resolve, reject) => {
+        return when.promise<RevisionUtils> ( (resolve, ) => {
             this._client.platform().createOnlineWorkingCopy(this._project, 
                 new Revision(this._revNo, new Branch(this._project, this._info.branchName)))
                 .then ( (workingCopy : OnlineWorkingCopy) => {
@@ -37,12 +37,6 @@ export class RevisionUtils {
                         let modulename = mf.qualifiedName.split(".")[0];
                         return ["System", "NavigationLayout", "Administration"].indexOf(modulename) === -1;
                     });
-                    /**
-                     * this._microflows[0].objectCollection.objects.forEach( mfo => {
-                     *   console.log(mfo.typeName);
-                     * })
-                     */
-                    
                     console.log(`Successfully load revision ${this._revNo} of project ${this._info.projectName}`);
                     resolve(this);
                 })
@@ -60,11 +54,12 @@ export class RevisionUtils {
     commitToServer() : void {
         this._client.platform().commitToTeamServer(this._workingCopy)
             .done(
-                revision => {
-                    console.log("Successfully commitToTeamServer");
+                () => {
+                    console.log("Successfully commit to server");
                 },
                 error => {
-                    console.log("Failed to commitToTeamServer");
+                    console.log(`Failed to commit to server`);
+                    console.log(error);
                 }
             )
     }

@@ -1,17 +1,26 @@
 {
-  "name": "CompareTwoRevision",
+  "name": "comparetworevisions",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tran Thanh Tung",
   "license": "ISC",
   "dependencies": {
     "mendixmodelsdk": "^3.0.3",
     "mendixplatformsdk": "^2.0.0",
     "when": "^3.7.7"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanhtung29497/CompareTwoRevision.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thanhtung29497/CompareTwoRevision/issues"
+  },
+  "homepage": "https://github.com/thanhtung29497/CompareTwoRevision#readme",
+  "description": ""
 }

@@ -8,11 +8,11 @@ var SearchingList = (function () {
         this.sort(0, this._list.length - 1);
         this._isEqual = isEqual;
     }
-    SearchingList.prototype.sort = function (l, r) {
-        if (l >= r)
+    SearchingList.prototype.sort = function (start, end) {
+        if (start >= end)
             return;
-        var i = l, j = r;
-        var pivot = this._list[l];
+        var i = start, j = end;
+        var pivot = this._list[start];
         do {
             while (this._isGreater(this._list[j], pivot))
                 j--;
@@ -26,20 +26,20 @@ var SearchingList = (function () {
                 j--;
             }
         } while (i <= j);
-        this.sort(l, j);
-        this.sort(i, r);
+        this.sort(start, j);
+        this.sort(i, end);
     };
     SearchingList.prototype.contain = function (element) {
-        var l = 0, r = this._list.length - 1;
-        while (l <= r) {
-            var mid = Math.floor((l + r) / 2);
+        var start = 0, end = this._list.length - 1;
+        while (start <= end) {
+            var mid = Math.floor((start + end) / 2);
             if (this._isEqual(element, this._list[mid]))
                 return true;
             if (this._isGreater(this._list[mid], element)) {
-                r = mid - 1;
+                end = mid - 1;
             }
             else {
-                l = mid + 1;
+                start = mid + 1;
             }
         }
         return false;
@@ -47,41 +47,44 @@ var SearchingList = (function () {
     SearchingList.prototype.getList = function () {
         return this._list;
     };
-    SearchingList.prototype.missingList = function (list) {
+    SearchingList.prototype.missingList = function (listToCompare) {
         var _this = this;
+        // return a list includes all elements that appears in listToCompare but not in this list
         var missingList = [];
-        if (list instanceof SearchingList)
-            list = list.getList();
-        list.forEach(function (element) {
+        if (listToCompare instanceof SearchingList)
+            listToCompare = listToCompare.getList();
+        listToCompare.forEach(function (element) {
             if (!_this.contain(element)) {
                 missingList.push(element);
             }
         });
         return missingList;
     };
-    SearchingList.prototype.commonList = function (list) {
+    SearchingList.prototype.commonList = function (listToCompare) {
         var _this = this;
+        // return a list includes all elements that appears in both listToCompare and this list
         var commonList = [];
-        if (list instanceof SearchingList)
-            list = list.getList();
-        list.forEach(function (element) {
+        if (listToCompare instanceof SearchingList)
+            listToCompare = listToCompare.getList();
+        listToCompare.forEach(function (element) {
             if (_this.contain(element)) {
                 commonList.push(element);
             }
         });
         return new SearchingList(commonList, this._isGreater);
     };
-    SearchingList.prototype.find = function (element) {
-        var l = 0, r = this._list.length - 1;
-        while (l <= r) {
-            var mid = Math.floor((l + r) / 2);
-            if (this._isEqual(element, this._list[mid]))
+    SearchingList.prototype.find = function (elementToFind) {
+        // return the element in this list that is equal to elementToFind
+        var start = 0, end = this._list.length - 1;
+        while (start <= end) {
+            var mid = Math.floor((start + end) / 2);
+            if (this._isEqual(elementToFind, this._list[mid]))
                 return this._list[mid];
-            if (this._isGreater(this._list[mid], element)) {
-                r = mid - 1;
+            if (this._isGreater(this._list[mid], elementToFind)) {
+                end = mid - 1;
             }
             else {
-                l = mid + 1;
+                start = mid + 1;
             }
         }
         return null;

@@ -13,7 +13,7 @@ var RevisionUtils = (function () {
     }
     RevisionUtils.prototype.load = function () {
         var _this = this;
-        return when.promise(function (resolve, reject) {
+        return when.promise(function (resolve) {
             _this._client.platform().createOnlineWorkingCopy(_this._project, new mendixplatformsdk_1.Revision(_this._revNo, new mendixplatformsdk_1.Branch(_this._project, _this._info.branchName)))
                 .then(function (workingCopy) {
                 _this._workingCopy = workingCopy;
@@ -26,11 +26,6 @@ var RevisionUtils = (function () {
                     var modulename = mf.qualifiedName.split(".")[0];
                     return ["System", "NavigationLayout", "Administration"].indexOf(modulename) === -1;
                 });
-                /**
-                 * this._microflows[0].objectCollection.objects.forEach( mfo => {
-                 *   console.log(mfo.typeName);
-                 * })
-                 */
                 console.log("Successfully load revision " + _this._revNo + " of project " + _this._info.projectName);
                 resolve(_this);
             });
@@ -44,10 +39,11 @@ var RevisionUtils = (function () {
     };
     RevisionUtils.prototype.commitToServer = function () {
         this._client.platform().commitToTeamServer(this._workingCopy)
-            .done(function (revision) {
-            console.log("Successfully commitToTeamServer");
+            .done(function () {
+            console.log("Successfully commit to server");
         }, function (error) {
-            console.log("Failed to commitToTeamServer");
+            console.log("Failed to commit to server");
+            console.log(error);
         });
     };
     RevisionUtils.prototype.closeConnection = function () {

@@ -8,11 +8,11 @@ import {ProjectInfo} from "./ProjectInfo";
         return when.all<microflows.Microflow[]> (mf.map(loadAsPromise));
     }
 
-    static compareTwoMfById( first : microflows.Microflow, second: microflows.Microflow) : boolean {
+    static greaterMfById( first : microflows.Microflow, second: microflows.Microflow) : boolean {
         return first.id > second.id;
     }
 
-    static compareTwoMfObjectById(first : microflows.MicroflowObject, second : microflows.MicroflowObject) {
+    static greaterMfObjectById(first : microflows.MicroflowObject, second : microflows.MicroflowObject) {
         return first.id > second.id;
     }
 

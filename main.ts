@@ -3,7 +3,7 @@ import {ModelSdkClient, IModel} from "mendixmodelsdk";
 import {Project, OnlineWorkingCopy, loadAsPromise} from "mendixplatformsdk";
 import {RevisionUtils} from "./RevisionUtils";
 import {ProjectInfo} from "./ProjectInfo";
-import {ProjectUtils} from "./ProjectUtils";
+import {ProjectComparing} from "./ProjectComparing";
 
 let project : ProjectInfo = {
     projectName : "ThirdProject",
@@ -13,5 +13,5 @@ let project : ProjectInfo = {
     branchName : ""
 }
 
-let projectUtil = new ProjectUtils(project);
-projectUtil.compareTwoRevision(11,10);
+let projectUtil = new ProjectComparing(project);
+projectUtil.compareTwoRevisions(11,10);

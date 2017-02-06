@@ -1,7 +1,11 @@
 {
 	"compilerOptions" : {
 		"module" : "commonjs",
-		"target" : "es5"
+		"target" : "es5",
+		"skipLibCheck": true,
+		"noImplicitReturns": true,
+		"noUnusedParameters": true
+		
 	},
 	"files" : [
 		"main.ts",

@@ -1,5 +1,5 @@
 "use strict";
-var ProjectUtils_1 = require("./ProjectUtils");
+var ProjectComparing_1 = require("./ProjectComparing");
 var project = {
     projectName: "ThirdProject",
     projectId: "1c790420-2f3f-4559-bce4-11a8af4be8b8",
@@ -7,5 +7,5 @@ var project = {
     apikey: "38076341-6d3c-4a5c-8671-bc90c3dec0fb",
     branchName: ""
 };
-var projectUtil = new ProjectUtils_1.ProjectUtils(project);
-projectUtil.compareTwoRevision(11, 10);
+var projectUtil = new ProjectComparing_1.ProjectComparing(project);
+projectUtil.compareTwoRevisions(11, 10);

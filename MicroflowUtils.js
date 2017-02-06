@@ -8,10 +8,10 @@ var MicroflowUtils = (function () {
     MicroflowUtils.loadAllMicroflows = function (mf) {
         return when.all(mf.map(mendixplatformsdk_1.loadAsPromise));
     };
-    MicroflowUtils.compareTwoMfById = function (first, second) {
+    MicroflowUtils.greaterMfById = function (first, second) {
         return first.id > second.id;
     };
-    MicroflowUtils.compareTwoMfObjectById = function (first, second) {
+    MicroflowUtils.greaterMfObjectById = function (first, second) {
         return first.id > second.id;
     };
     MicroflowUtils.twoMfEqualId = function (first, second) {
